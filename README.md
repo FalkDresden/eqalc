@@ -5,7 +5,7 @@ Convert your [Typst](https://typst.app/home) math equations to functions in orde
 
 Install eqalc by cloning it and then importing like this: 
 ```typ
-#import "lib.typ": math-to-func
+#import "eqalc/lib.typ": math-to-func
 ```
 
 Available functions at the moment:

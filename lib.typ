@@ -45,7 +45,13 @@
   )
 }
 
-#let math-to-code(math) = {
+/// Converts a math expression to code.
+/// -> content
+#let math-to-code(
+  /// The math expression.
+  /// -> equation
+  math,
+) = {
   let f = math-to-str(math)
   raw(lang: "typst", f)
 }

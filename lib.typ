@@ -56,7 +56,11 @@
   raw(lang: "typst", f)
 }
 
-#let f = $sqrt(1 / (x+1))$
+#let f = $sqrt(1^2 / (x+1))$
+#let f = $2x dot sqrt(e^x)$
 #f\
-#math-to-code(f)
-#func-to-table(math-to-func(f), min: 0, max: 5, step: 1)
+#repr(f)
+
+#math-to-str(f)
+
+#func-to-table(math-to-func(f), min: 1, max: 5, step: 1)

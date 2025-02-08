@@ -57,10 +57,9 @@
 }
 
 #let f = $sqrt(1^2 / (x+1))$
-#let f = $2x dot sqrt(e^x)$
+#let f = $2x dot sqrt(e^x)+ln(x)+2pi$
 #f\
 #repr(f)
 
 #math-to-str(f)
-
 #func-to-table(math-to-func(f), min: 1, max: 5, step: 1)

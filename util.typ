@@ -35,8 +35,19 @@
           + ")"
       )
       // Default case
+    } else if n == [ ] { } else if n.has("text") {
+      if n.text == "e" {
+        "calc.e"
+      } else if n.text == $pi$.body.text {
+        "calc.pi"
+      } else if n.text == $tau$.body.text {
+        "calc.tau"
+      } else {
+        n.text
+      }
+      // This is still a sequence.
     } else {
-      n.at("text", default: "")
+      math-to-str(n, depth: depth + 1)
     }
   }
 
@@ -48,11 +59,11 @@
   nodes
     .map(map-math)
     .join()
-    .replace(regex("(\d)\s*x"), ((captures,)) => captures.first() + "*x")
+    .replace(
+      regex("(\d)\s*(x|calc|\()"),
+      ((captures,)) => captures.first() + "*" + captures.last(),
+    )
     .replace(math.dot, "*")
-    .replace(regex("\be\b"), "calc.e")
-    // Remove extra calc. prefixes
-    .replace(regex("calc\.calc"), "calc")
 }
 
 

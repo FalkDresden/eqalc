@@ -52,7 +52,7 @@
   let var = get-variable(math-to-str(math))
   let f = math-to-func(math)
   let name = if name != none { name } else {
-    $#math-to-str(math, get-first-part: true)$
+    eval(math-to-str(math, get-first-part: true), mode: "math")
   }
   table(
     columns: calc.ceil((max - min) / step) + 2,

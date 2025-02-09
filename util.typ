@@ -2,7 +2,7 @@
 /// -> string
 #let math-to-str(
   /// The math expression.
-  /// - equation
+  /// -> content
   eq,
   /// Get the part before the equals sign.
   get-first-part: false,

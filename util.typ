@@ -4,6 +4,8 @@
   /// The math expression.
   /// - equation
   eq,
+  /// Get the part before the equals sign.
+  get-first-part: false,
   depth: 0,
 ) = {
   let map-math(n) = {
@@ -55,8 +57,9 @@
     eq = eq.body
   }
   // Adding `[]` to make it a sequence if it isn't already.
-  let nodes = (eq + []).fields().children
-  nodes
+  let string = (eq + [])
+    .fields()
+    .children
     .map(map-math)
     .join()
     .replace(
@@ -64,6 +67,17 @@
       ((captures,)) => captures.first() + "*" + captures.last(),
     )
     .replace(math.dot, "*")
+
+  if depth == 0 {
+    let reg = if get-first-part {
+      regex("=.+")
+    } else {
+      regex(".+=")
+    }
+    string.replace(reg, "")
+  } else {
+    string
+  }
 }
 
 /// Gets the main variable from a math expression.

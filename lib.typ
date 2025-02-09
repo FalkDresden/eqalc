@@ -38,7 +38,9 @@
   assert(step > 0, message: "step must be greater than 0")
   let var = get-variable(math-to-str(eq))
   let f = math-to-func(eq)
-  let name = if name != none { name } else { $f(#var)$ }
+  let name = if name != none { name } else {
+    $#math-to-str(eq, get-first-part: true)$
+  }
   table(
     columns: calc.ceil((max - min) / step) + 2,
     [$#var$], ..range(min, max + step, step: step).map(x => [$#x$]),
@@ -61,7 +63,7 @@
   raw(lang: "typst", f)
 }
 
-#let f = $2y dot sqrt(e^y)+ln(y)+2pi$
+#let f = $g(t)=2t dot sqrt(e^t)+ln(t)+2pi$
 #f\
 #repr(f)
 

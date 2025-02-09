@@ -84,7 +84,7 @@
 /// -> string
 #let get-variable(
   /// The math expression.
-  /// - string
+  /// -> string
   math-str,
 ) = {
   let reg = regex("\b([A-Za-z--e])\b")

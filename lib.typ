@@ -101,8 +101,41 @@
   raw(lang: "typst", f)
 }
 
+/// Math to any data you might need.
+///
+/// Example:
+/// `#math-to-data($f(x)=x^2$)` will output:
+/// ```typ
+/// #(
+///   func: (x => calc.pow(x,2)),
+///   str: "calc.pow(x,2)",
+///   x: "x",
+///   fx: "f(x)",
+///   fx-math: $f(x)$,
+///)```
+/// -> (func: function, str: string, x: string, fx: string, fx-math: content)
+#let math-to-data(
+  /// The math expression.
+  /// -> content
+  math,
+) = {
+  let f = math-to-func(math)
+  let str = math-to-str(math)
+  let var = get-variable(str)
+  let fx = math-to-str(math, get-first-part: true)
+  (
+    func: f,
+    str: str,
+    x: var,
+    fx: fx,
+    fx-math: eval(fx, mode: "math"),
+  )
+}
+
 #let f = $g(t)=2t dot sqrt(e^t)+ln(t)+2pi$
 #f\
 
 #math-to-str(f)
 #math-to-table(f, min: 1, max: 5, step: 1)
+
+#math-to-data(f)

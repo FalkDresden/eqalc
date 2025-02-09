@@ -7,7 +7,13 @@ Convert your [Typst](https://typst.app/home) math equations to functions in orde
 Install eqalc by cloning it and then importing like this:
 
 ```typ
-#import "eqalc/lib.typ": math-to-func
+#import "eqalc/lib.typ": math-to-func, math-to-code, math-to-table
+#let f = $g(t)=2t dot sqrt(e^t)+ln(t)+2pi$
+#f\
+#math-to-code(f)
+#math-to-table(f, min: 1, max: 5, step: 1)
+
+// `math-to-func` will return a function that can be used to map over values
 ```
 
 Available functions at the moment:

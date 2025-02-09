@@ -27,7 +27,7 @@
   }]
 
 = About
-I created this package, because I thought it was very annoting to have to write
+I created this package, because I thought it was very annoying to have to write
 down the equation in both math notation and code. This package allows you to
 write down the equation in math notation and convert it to a function.
 

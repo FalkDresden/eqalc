@@ -2,33 +2,99 @@
 /// -> string
 #let math-to-str(
   /// The math expression.
-  /// - equation
-  math,
+  /// -> content
+  eq,
+  /// Get the part before the equals sign. This is used to get the function name.
+  /// -> boolean
+  get-first-part: false,
+  /// The depth of the recursion. This is used for debugging.
+  /// -> integer
+  depth: 0,
 ) = {
-  let map-math(n, depth: 0) = {
-    if n.has("base") {
-      "calc.pow(" + math-to-str(n.base) + ", " + math-to-str(n.t.text) + ")"
-    } else if n.has("radicand") {
+  let map-math(n) = {
+    // Operators like sin, cos, etc.
+    if n.func() == math.op {
+      "calc." + n.fields().text.text
+      // Parentheses
+    } else if n.func() == math.lr {
+      math-to-str(n.body, depth: depth + 1)
+      // Powers
+    } else if n.has("base") and n.has("t") {
+      "calc.pow(" + math-to-str(n.base) + ", " + math-to-str(n.t) + ")"
+      // Roots
+    } else if n.func() == math.root {
       (
         "calc.root("
-          + math-to-str(n.radicand)
+          + math-to-str(n.radicand, depth: depth + 1)
           + ", "
           + n.at("index", default: "2")
           + ")"
       )
-    } else if n.has("num") {
-      "(" + math-to-str(n.num) + ")/(" + math-to-str(n.denom) + ")"
+      // Fractions
+    } else if n.func() == math.frac {
+      (
+        "("
+          + math-to-str(n.num, depth: depth + 1)
+          + ")/("
+          + math-to-str(n.denom, depth: depth + 1)
+          + ")"
+      )
+      // Default case
+    } else if n == [ ] { } else if n.has("text") {
+      if n.text == "e" {
+        "calc.e"
+      } else if n.text == $pi$.body.text {
+        "calc.pi"
+      } else if n.text == $tau$.body.text {
+        "calc.tau"
+      } else {
+        n.text
+      }
+      // This is still a sequence.
     } else {
-      n.at("text", default: "")
+      math-to-str(n, depth: depth + 1)
     }
   }
 
+  if not type(eq) == "string" and eq.has("body") {
+    eq = eq.body
+  }
   // Adding `[]` to make it a sequence if it isn't already.
-  let nodes = (math.at("body", default: math) + []).fields().children
-  nodes
+  let string = (eq + [])
+    .fields()
+    .children
     .map(map-math)
     .join()
-    .replace(regex("(\d)\s*x"), ((captures,)) => captures.first() + "*x")
+    .replace(
+      regex("(\d)\s*([a-zA-Z]\b|calc|\()"),
+      ((captures,)) => captures.first() + "*" + captures.last(),
+    )
+    .replace(math.dot, "*")
+
+  if depth == 0 {
+    let reg = if get-first-part {
+      regex("=.+")
+    } else {
+      regex(".+=")
+    }
+    string.replace(reg, "")
+  } else {
+    string
+  }
 }
 
-
+/// Gets the main variable from a math expression.
+/// -> string
+#let get-variable(
+  /// The math expression.
+  /// -> string
+  math-str,
+) = {
+  let reg = regex("\b([A-Za-z--e])\b")
+  let match = math-str.match(reg)
+  if match != none {
+    match.text
+  } else {
+    "x"
+  }
+}

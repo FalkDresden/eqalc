@@ -32,16 +32,16 @@
   /// -> content
   math,
   /// The minimum value of the domain.
-  /// -> number
+  /// -> integer
   min: 0,
   /// The maximum value of the domain.
-  /// -> number
+  /// -> integer
   max: 5,
   /// The step size.
-  /// -> number
+  /// -> integer
   step: 1,
-  /// The number of decimal places to round to.
-  /// -> number
+  /// The integer of decimal places to round to.
+  /// -> integer
   round: 2,
   /// The name of the function.
   /// -> content

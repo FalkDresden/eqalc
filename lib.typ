@@ -110,10 +110,11 @@
 ///   func: (x => calc.pow(x,2)),
 ///   str: "calc.pow(x,2)",
 ///   x: "x",
+///   x-math: $x$,
 ///   fx: "f(x)",
 ///   fx-math: $f(x)$,
 ///)```
-/// -> (func: function, str: string, x: string, fx: string, fx-math: content)
+/// -> (func: function, str: string, x: string, x-math: content, fx: string, fx-math: content)
 #let math-to-data(
   /// The math expression.
   /// -> content
@@ -127,6 +128,7 @@
     func: f,
     str: str,
     x: var,
+    x-math: eval(var, mode: "math"),
     fx: fx,
     fx-math: eval(fx, mode: "math"),
   )

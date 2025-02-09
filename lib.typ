@@ -65,28 +65,6 @@
   )
 }
 
-/// DEPRECATED: Use `math-to-table` instead.
-#let func-to-table(
-  f,
-  min: 0,
-  max: 5,
-  step: 1,
-  round: 2,
-  name: $f(x)$,
-) = {
-  assert(min < max, message: "min must be less than max")
-  assert(step > 0, message: "step must be greater than 0")
-  table(
-    columns: calc.ceil((max - min) / step) + 2,
-    [$x$], ..range(min, max + step, step: step).map(x => [$#x$]),
-    name, ..range(
-      min,
-      max + step,
-      step: step,
-    ).map(x => [#calc.round(f(x), digits: round)]),
-  )
-}
-
 /// Converts a math expression to code.
 ///
 /// Example:

@@ -18,7 +18,7 @@
   #subtitle
 
   #context {
-    box(width: measure(subtitle).width)[#prop.version
+    box(width: measure(subtitle).width)[v#prop.version
       #h(1fr)
       #prop.authors.join(
         ", ",

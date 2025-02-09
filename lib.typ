@@ -1,10 +1,14 @@
 #import "util.typ": math-to-str, get-variable
 
 /// Creates a function from a math expression.
-/// -> math
+///
+///
+/// Example:
+/// `#math-to-func($x^2$)` will output `#(x => calc.pow(x,2))`.
+/// -> function
 #let math-to-func(
   /// The math expression.
-  /// - content
+  /// -> content
   math,
 ) = {
   let string = math-to-str(math)
@@ -13,33 +17,42 @@
 }
 
 /// Creates a table of function values.
+///
+/// Example:
+/// `#math-to-table($x^2$, min: 1, max: 5, step: 1)` will output:
+/// ```table
+/// x    | 1 | 2 | 3 | 4 | 5 |
+/// --------------------------
+/// f(x) | 1 | 4 | 9 | 16| 25|
+/// ```
+/// But in an actual table.
 /// -> content
 #let math-to-table(
   /// The function to evaluate.
-  /// - content
-  eq,
+  /// -> content
+  math,
   /// The minimum value of the domain.
-  /// - number
+  /// -> number
   min: 0,
   /// The maximum value of the domain.
-  /// - number
+  /// -> number
   max: 5,
   /// The step size.
-  /// - number
+  /// -> number
   step: 1,
   /// The number of decimal places to round to.
-  /// - number
+  /// -> number
   round: 2,
   /// The name of the function.
-  /// - content
+  /// -> content
   name: none,
 ) = {
   assert(min < max, message: "min must be less than max")
   assert(step > 0, message: "step must be greater than 0")
-  let var = get-variable(math-to-str(eq))
-  let f = math-to-func(eq)
+  let var = get-variable(math-to-str(math))
+  let f = math-to-func(math)
   let name = if name != none { name } else {
-    $#math-to-str(eq, get-first-part: true)$
+    $#math-to-str(math, get-first-part: true)$
   }
   table(
     columns: calc.ceil((max - min) / step) + 2,
@@ -53,26 +66,12 @@
 }
 
 /// DEPRECATED: Use `math-to-table` instead.
-/// Creates a table of function values.
-/// -> content
 #let func-to-table(
-  /// The function to evaluate.
-  /// - function
   f,
-  /// The minimum value of the domain.
-  /// - number
   min: 0,
-  /// The maximum value of the domain.
-  /// - number
   max: 5,
-  /// The step size.
-  /// - number
   step: 1,
-  /// The number of decimal places to round to.
-  /// - number
   round: 2,
-  /// The name of the function.
-  /// - content
   name: $f(x)$,
 ) = {
   assert(min < max, message: "min must be less than max")
@@ -89,10 +88,13 @@
 }
 
 /// Converts a math expression to code.
+///
+/// Example:
+/// `#math-to-code($x^2$)` will output `calc.pow(x,2)`.
 /// -> content
 #let math-to-code(
   /// The math expression.
-  /// - equation
+  /// -> content
   math,
 ) = {
   let f = math-to-str(math)

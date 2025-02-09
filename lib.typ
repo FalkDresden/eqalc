@@ -133,11 +133,3 @@
     fx-math: eval(fx, mode: "math"),
   )
 }
-
-#let f = $g(t)=2t dot sqrt(e^t)+ln(t)+2pi$
-#f\
-
-#math-to-str(f)
-#math-to-table(f, min: 1, max: 5, step: 1)
-
-#math-to-data(f)

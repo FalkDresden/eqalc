@@ -34,3 +34,7 @@ write down the equation in math notation and convert it to a function.
 = Usage
 #let docs = tidy.parse-module(read("../lib.typ"))
 #tidy.show-module(docs, style: tidy.styles.default)
+
+== Utility functions
+#let docs = tidy.parse-module(read("../util.typ"))
+#tidy.show-module(docs, style: tidy.styles.default)

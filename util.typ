@@ -4,8 +4,11 @@
   /// The math expression.
   /// -> content
   eq,
-  /// Get the part before the equals sign.
+  /// Get the part before the equals sign. This is used to get the function name.
+  /// -> boolean
   get-first-part: false,
+  /// The depth of the recursion. This is used for debugging.
+  /// -> integer
   depth: 0,
 ) = {
   let map-math(n) = {

@@ -25,3 +25,4 @@ Available functions at the moment:
 - `math-to-func`
 - `math-to-code`
 - `math-to-table`
+- `math-to-data`

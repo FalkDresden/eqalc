@@ -60,10 +60,24 @@
     .map(map-math)
     .join()
     .replace(
-      regex("(\d)\s*(x|calc|\()"),
+      regex("(\d)\s*([a-zA-Z]\b|calc|\()"),
       ((captures,)) => captures.first() + "*" + captures.last(),
     )
     .replace(math.dot, "*")
 }
 
-
+/// Gets the main variable from a math expression.
+/// -> string
+#let get-variable(
+  /// The math expression.
+  /// - string
+  math-str,
+) = {
+  let reg = regex("\b([A-Za-z--e])\b")
+  let match = math-str.match(reg)
+  if match != none {
+    match.text
+  } else {
+    "x"
+  }
+}

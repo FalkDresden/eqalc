@@ -73,7 +73,11 @@
 
   if depth == 0 {
     let reg = if get-first-part {
-      regex("=.+")
+      if string.contains("=") {
+        regex("=.+")
+      } else {
+        regex(".+")
+      }
     } else {
       regex(".+=")
     }

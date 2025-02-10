@@ -1,3 +1,13 @@
+# v0.1.1
+features: 
+
+  - added ability to use labels
+
+bug fixes:
+
+  - the variable will now be in math mode in v13
+  - expressions (without a left side) would cause an error
+
 # v0.1.0
 features:
 

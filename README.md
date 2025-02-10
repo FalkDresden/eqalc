@@ -22,7 +22,7 @@ Install eqalc by cloning it and then importing like this:
 // You can also use labels:
 $ g(t) = 2t \cdot \sqrt{e^t} + \ln(t) + 2\pi $ <eq>
 #context math-to-code(<eq>)
-#context math-to-table(<eq>)
+#context math-to-table(<eq>, min: 1, max: 5, step: 1)
 ```
 
 ![image](https://github.com/user-attachments/assets/0cde46d3-e9d6-42f6-a536-f681f6b9091c)

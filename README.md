@@ -18,6 +18,11 @@ Install eqalc by cloning it and then importing like this:
 #math-to-table(f, min: 1, max: 5, step: 1)
 
 // `math-to-func` will return a function that can be used to map over values
+
+// You can also use labels:
+$ g(t) = 2t \cdot \sqrt{e^t} + \ln(t) + 2\pi $ <eq>
+#context math-to-code(<eq>)
+#context math-to-table(<eq>)
 ```
 
 ![image](https://github.com/user-attachments/assets/0cde46d3-e9d6-42f6-a536-f681f6b9091c)
@@ -28,6 +33,8 @@ Available functions at the moment:
 - `math-to-code`
 - `math-to-table`
 - `math-to-data`
+
+More on these functions in the [manual](https://github.com/7ijme/eqalc/blob/main/docs/manual.pdf).
 
 ## How it works
 

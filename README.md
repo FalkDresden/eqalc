@@ -5,6 +5,8 @@ So you only have to write your equation out ONCE!
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/7ijme/eqalc/blob/main/LICENSE)
 
+## Installing
+
 Install eqalc by cloning it and then importing like this:
 
 ```typ
@@ -17,8 +19,8 @@ Install eqalc by cloning it and then importing like this:
 
 // `math-to-func` will return a function that can be used to map over values
 ```
-![image](https://github.com/user-attachments/assets/b151af4e-a0d5-4320-8bf3-3642dd5e6e33)
 
+![image](https://github.com/user-attachments/assets/0cde46d3-e9d6-42f6-a536-f681f6b9091c)
 
 Available functions at the moment:
 
@@ -26,3 +28,45 @@ Available functions at the moment:
 - `math-to-code`
 - `math-to-table`
 - `math-to-data`
+
+## How it works
+
+Eqalc parses your equations by recursively going through the math expressions.
+
+```typ
+// Let's take #f from the example above
+#repr(f)
+// This will return a tree representation of the equation
+equation(
+    block: false,
+    body: sequence(
+        sequence([g], lr(body: sequence([(], [t], [)]))),
+        [=],
+        [2],
+        [t],
+        [ ],
+        [⋅],
+        [ ],
+        root(radicand: attach(base: [e], t: [t])),
+        [+],
+        sequence(
+            op(text: [ln], limits: false),
+            lr(body: sequence([(], [t], [)])),
+            ),
+        [+],
+        [2],
+        [π],
+    ),
+)
+
+#math-to-str(f)
+// This will return the equation as a string
+// `2*t*calc.root(calc.pow(calc.e, t), 2)+calc.ln(t)+2*calc.pi`
+```
+
+If the given math expression is an equation, the left hand side will be turned into the name of the function, and the right hand side will be the body of the function.
+
+Only one variable is allowed in the right hand side of the equation.
+
+## Contributing
+Any contributions are welcome! Just fork the repository and make a pull request.

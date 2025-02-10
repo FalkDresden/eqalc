@@ -1,4 +1,4 @@
-#import "util.typ": math-to-str, get-variable
+#import "util.typ": math-to-str, get-variable, label-to-math
 
 /// Creates a function from a math expression.
 ///
@@ -8,7 +8,7 @@
 /// -> function
 #let math-to-func(
   /// The math expression.
-  /// -> content
+  /// -> content | label
   math,
 ) = {
   let string = math-to-str(math)
@@ -32,7 +32,7 @@
 /// -> (func: function, str: string, x: string, x-math: content, fx: string, fx-math: content)
 #let math-to-data(
   /// The math expression.
-  /// -> content
+  /// -> content | label
   math,
 ) = {
   let f = math-to-func(math)
@@ -62,7 +62,7 @@
 /// -> content
 #let math-to-table(
   /// The function to evaluate.
-  /// -> content
+  /// -> content | label
   math,
   /// The minimum value of the domain.
   /// -> integer
@@ -102,7 +102,7 @@
 /// -> content
 #let math-to-code(
   /// The math expression.
-  /// -> content
+  /// -> content | label
   math,
 ) = {
   let f = math-to-str(math)

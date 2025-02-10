@@ -1,8 +1,18 @@
+/// Converts a label to a math expression.
+/// -> content
+#let label-to-math(
+  /// A label representing a math expression.
+  /// -> label
+  label,
+) = {
+  query(label).first()
+}
+
 /// Converts math equations to strings.
 /// -> string
 #let math-to-str(
   /// The math expression.
-  /// -> content
+  /// -> content | label
   eq,
   /// Get the part before the equals sign. This is used to get the function name.
   /// -> boolean
@@ -54,6 +64,10 @@
     } else {
       math-to-str(n, depth: depth + 1)
     }
+  }
+
+  if type(eq) == "label" {
+    eq = label-to-math(eq)
   }
 
   if not type(eq) == "string" and eq.has("body") {

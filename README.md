@@ -20,7 +20,7 @@ Install eqalc by cloning it and then importing like this:
 // `math-to-func` will return a function that can be used to map over values
 
 // You can also use labels:
-$ g(t) = 2t \cdot \sqrt{e^t} + \ln(t) + 2\pi $ <eq>
+$ g(t) = 2t dot sqrt(e^t) + ln(t) + 2pi $ <eq>
 #context math-to-code(<eq>)
 #context math-to-table(<eq>, min: 1, max: 5, step: 1)
 ```

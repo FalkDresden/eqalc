@@ -80,7 +80,7 @@
     .map(map-math)
     .join()
     .replace(
-      regex("(\d|\))\s*([a-zA-Z]\b|calc|\()"),
+      regex("(\d|\)|[a-zA-Z])\s*([a-zA-Z]\b|calc|\()"),
       ((captures,)) => captures.first() + "*" + captures.last(),
     )
     .replace(math.dot, "*")

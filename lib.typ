@@ -40,6 +40,9 @@
   let str = math-to-str(math)
   let var = get-variable(str)
   let fx = math-to-str(math, get-first-part: true)
+  if type(math) == "label" {
+    math = label-to-math(math)
+  }
   (
     func: f,
     str: str,

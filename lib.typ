@@ -106,5 +106,5 @@
   math,
 ) = {
   let f = math-to-str(math)
-  raw(lang: "typst", f)
+  raw(f)
 }

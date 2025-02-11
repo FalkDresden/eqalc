@@ -28,8 +28,9 @@
 ///   x-math: $x$,
 ///   fx: "f(x)",
 ///   fx-math: $f(x)$,
+///   math: $f(x)=x^2$,
 ///)```
-/// -> (func: function, str: string, x: string, x-math: content, fx: string, fx-math: content)
+/// -> (func: function, str: string, x: string, x-math: content, fx: string, fx-math: content, math: content)
 #let math-to-data(
   /// The math expression.
   /// -> content | label
@@ -46,6 +47,7 @@
     x-math: eval(var, mode: "math"),
     fx: fx,
     fx-math: eval(fx, mode: "math"),
+    math: math,
   )
 }
 

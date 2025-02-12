@@ -1,4 +1,4 @@
-#import "util.typ": math-to-str, get-variable, label-to-math
+#import "util.typ": math-to-str, get-variable, label-to-math, split-equation
 
 /// Creates a function from a math expression.
 ///
@@ -22,15 +22,16 @@
 /// `#math-to-data($f(x)=x^2$)` will output:
 /// ```typ
 /// #(
-///   func: (x => calc.pow(x,2)),
-///   str: "calc.pow(x,2)",
-///   x: "x",
-///   x-math: $x$,
+///   func: #(x => calc.pow(x,2)),
+///   var: "x",
+///   var-math: $x$,
+///   x: "calc.pow(x,2)",
+///   x-math: $x^2$,
 ///   fx: "f(x)",
 ///   fx-math: $f(x)$,
-///   math: $f(x)=x^2$,
+///   full-math: $f(x)=x^2$
 ///)```
-/// -> (func: function, str: string, x: string, x-math: content, fx: string, fx-math: content, math: content)
+/// -> (func: function, var: string, var-math: content, x: string, x-math: content, fx: string, fx-math: content, full-math: content)
 #let math-to-data(
   /// The math expression.
   /// -> content | label
@@ -43,14 +44,16 @@
   if type(math) == "label" {
     math = label-to-math(math)
   }
+  let (fx-math, x-math) = split-equation(math)
   (
     func: f,
-    str: str,
-    x: var,
-    x-math: eval(var, mode: "math"),
+    var: var,
+    var-math: eval(var, mode: "math"),
+    x: str,
+    x-math: x-math,
     fx: fx,
-    fx-math: eval(fx, mode: "math"),
-    math: math,
+    fx-math: fx-math,
+    full-math: math,
   )
 }
 
@@ -87,29 +90,15 @@
 ) = {
   assert(min < max, message: "min must be less than max")
   assert(step > 0, message: "step must be greater than 0")
-  let (x-math, fx-math, func) = math-to-data(math)
+  let (var-math, fx-math, func) = math-to-data(math)
   let name = if name != none { name } else { fx-math }
   table(
     columns: calc.ceil((max - min) / step) + 2,
-    x-math, ..range(min, max + step, step: step).map(x => [$#x$]),
+    var-math, ..range(min, max + step, step: step).map(x => [$#x$]),
     name, ..range(
       min,
       max + step,
       step: step,
     ).map(x => [#calc.round(func(x), digits: round)]),
   )
-}
-
-/// Converts a math expression to code.
-///
-/// Example:
-/// `#math-to-code($x^2$)` will output `calc.pow(x,2)`.
-/// -> content
-#let math-to-code(
-  /// The math expression.
-  /// -> content | label
-  math,
-) = {
-  let f = math-to-str(math)
-  raw(f)
 }

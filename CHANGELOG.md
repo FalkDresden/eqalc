@@ -1,3 +1,15 @@
+# v0.1.2
+features:
+
+  - fixed issues with left part of equation
+  - rewrote `math-to-data`, please refer to the docs
+  - multiplication without dots works pretty seamlessly now
+  - no error when equation is empty or only has `e`
+
+removed:
+  
+  - `math-to-code` has been removed, it was quite useless
+
 # v0.1.1
 features: 
 

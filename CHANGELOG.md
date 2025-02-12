@@ -3,7 +3,7 @@ features:
 
   - fixed issues with left part of equation
   - rewrote `math-to-data`, please refer to the docs
-  - multiplication without dots works pretty seemlessly now
+  - multiplication without dots works pretty seamlessly now
   - no error when equation is empty or only has `e`
 
 removed:

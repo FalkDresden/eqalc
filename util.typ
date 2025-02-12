@@ -12,7 +12,7 @@
 /// -> (content, content)
 #let split-equation(
   /// The equation to split.
-  /// -> content
+  /// -> content | label
   eq,
 ) = {
   if type(eq) == "label" {

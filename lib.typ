@@ -41,7 +41,7 @@
   let str = math-to-str(math)
   let var = get-variable(str)
   let fx = math-to-str(math, get-first-part: true)
-  if type(math) == "label" {
+  if repr(type(math)) == "label" {
     math = label-to-math(math)
   }
   let (fx-math, x-math) = split-equation(math)
@@ -102,3 +102,8 @@
     ).map(x => [#calc.round(func(x), digits: round)]),
   )
 }
+
+$ f(x) = 4x $ <f>
+
+#context math-to-data(<f>)
+

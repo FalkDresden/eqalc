@@ -15,7 +15,7 @@
   /// -> content | label
   eq,
 ) = {
-  if type(eq) == "label" {
+  if repr(type(eq)) == "label" {
     eq = label-to-math(eq)
   }
 
@@ -103,7 +103,7 @@
     }
   }
 
-  if type(eq) == "label" {
+  if repr(type(eq)) == "label" {
     eq = label-to-math(eq)
   }
 
@@ -117,7 +117,10 @@
     }
   }
 
-  if not type(eq) == "string" and eq.has("body") {
+  if (
+    not (repr(type(eq)) == "string" or repr(type(eq)) == "str")
+      and eq.has("body")
+  ) {
     eq = eq.body
   }
 

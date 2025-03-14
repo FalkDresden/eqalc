@@ -137,6 +137,7 @@
       ((captures,)) => captures.first() + "*" + captures.last(),
     )
     .replace(math.dot, "*")
+    .replace(":", "/")
 
   string
 }
